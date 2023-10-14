@@ -18,7 +18,19 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+            $table->string('domin')->nullable();
+            $table->string('subdomin')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('facebook_page_id')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('email_contact')->nullable();
+            $table->tinyInteger('plan_id')->nullable();
+            $table->dateTime('next_expiration')->nullable();
+            $table->dateTime('disabled_acconunt')->nullable();
+            $table->dateTime('delete_acconunt')->nullable();
+            $table->tinyInteger('status')->nullable()->default(1);
+            $table->softDeletes();
         });
     }
 
