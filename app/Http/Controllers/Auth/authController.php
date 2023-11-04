@@ -20,9 +20,10 @@ class authController extends Controller
         ]);
 
         if ($validator->fails()) {
-            # code...
-            return response()->json(['errors' => $validator->errors()], 200); 
+           
+            return response()->json(['errors' => $validator->errors()], 400);
         }
+    try {
 
         $date = Carbon::now();
         $delete_acconunt = Carbon::now();
@@ -31,20 +32,22 @@ class authController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password =  Hash::make($request->password);
-        $user->next_expiration = $date->allDays(15);
-        $user->delete_acconunt = $delete_acconunt->allDays(30);
+        $user->next_expiration = $date->addDays(15);
+        $user->delete_acconunt = $delete_acconunt->addDays(30);
         $user->save();
 
         if ($user->id) {
-            
             return response()->json([
                 'access_token' => $user->createToken('auth-api')->accessToken
             ], 200);
         }
+    
+        return response()->json(['error' => 'Erro ao cadastrar Usuario'], 400);
 
-        return response()->json([
-            'error' => 'Erro ao cadastrar Usuario'
-        ], 200);
-        
+    }  catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()], 500);
+    }
+
     }
 }

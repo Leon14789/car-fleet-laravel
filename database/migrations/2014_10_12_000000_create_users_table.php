@@ -30,6 +30,7 @@ return new class extends Migration
             $table->dateTime('disabled_acconunt')->nullable();
             $table->dateTime('delete_acconunt')->nullable();
             $table->tinyInteger('status')->nullable()->default(1);
+            $table->timestamps();
             $table->softDeletes();
         });
     }
