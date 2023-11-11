@@ -11,8 +11,11 @@ class Vehicle extends Model
     use HasFactory;
 
    
-        public function vehicles_photos(){
-            return $this->hasMany('App\Models\Vehicle_photos', 'vehicle_id', 'id')->orderBy('order', 'ASC');
+        public function Vehicle_photos(){
+            // colocar i de vehicle ao subir em prod
+            return $this->hasMany('App\Models\Vehicle_photos', 'vehcle_id', 'id')->orderBy('order', 'ASC');
         }
+
+
     
 }

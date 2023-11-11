@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Vehicle;
 use App\Models\Vehicle_type;
-use App\Models\Vehicle_redgate;
+use App\Models\Vehicle_regdate;
 use App\Models\Vehicle_gearbox;
 use App\Models\Vehicle_fuel;
 use App\Models\Vehicle_car_steering;
@@ -17,7 +17,7 @@ use App\Models\Vehicle_features;
 use App\Models\Vehicle_carcolor;
 use App\Models\Vehicle_exchange;
 use App\Models\Vehicle_financial;
-use App\Models\Vehicles_cubiccms;
+use App\Models\Vehicle_cubiccms;
 
 
 
@@ -26,7 +26,10 @@ class vehiclesController extends Controller
     protected $user;
 
     public function __construct() {
-                $this->user = Auth()->guard('api')->user();
+            $this->middleware(function ($request, $next ){
+                    $this->user = Auth::user();
+                    return $next($request);
+            });
     }
 
     private function getData() {
@@ -42,8 +45,8 @@ class vehiclesController extends Controller
             'carcolor' => Vehicle_carcolor::all(),
             'exchange' => Vehicle_exchange::all(),
             'financial' => Vehicle_financial::all(),
-            'cubiccms' => Vehicles_cubiccms::all(),
-        ];
+            'cubiccms' => Vehicle_cubiccms::all(),
+        ];                
 
 
     }
@@ -58,9 +61,9 @@ class vehiclesController extends Controller
      */
     public function store(Request $request)
     {
-        $vehicle = Vehicle::with('vehicles_photos')
+        $vehicle = Vehicle::with('Vehicle_photos')
             ->firstOrCreate([
-                'user_id' => $this->$user->id,
+                'user_id' => $this->user->id,
                 'status' => 0,
                 
 

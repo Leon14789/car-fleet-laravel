@@ -7,3 +7,9 @@ laravel/passport (https://laravel.com/docs/10.x/passport)
 
 Comandos de instalação
 composer require laravel/passport 
+
+
+Criacao do Cliente Secreto
+ php artisan passport:install
+
+ pesquisar por colocar i de vehicle ao subir em prod

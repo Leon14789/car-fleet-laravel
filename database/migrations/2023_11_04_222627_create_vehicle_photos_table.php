@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vehicle_photos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->nullable();
-            $table->bigInteger('vehcle_id')->nullable();
+            $table->bigInteger('vehicle_id')->nullable();
             $table->string('img')->nullable();
             $table->bigInteger('order')->nullable();
             $table->timestamps();
