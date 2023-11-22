@@ -18,6 +18,11 @@ use App\Models\Vehicle_carcolor;
 use App\Models\Vehicle_exchange;
 use App\Models\Vehicle_financial;
 use App\Models\Vehicle_cubiccms;
+use App\Models\Vehicle_brand;
+use App\Models\Vehicle_model;
+use App\Models\Vehicle_version;
+
+
 
 
 
@@ -94,5 +99,27 @@ class vehiclesController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function brand($vehicle_type) {
+        $vehicle_brand = Vehicle_brand::where('vehicle_type_id', $vehicle_type)
+                    ->get();
+        return compact('vehicle_brand');
+    }
+
+    public function model($vehicle_type, $vehicle_brand) {
+            $vehicle_model = Vehicle_model::where('vehicle_type_id', $vehicle_type)
+                    ->where('brand_id', $vehicle_brand)
+                    ->orderBy('label')
+                    ->get();
+            return compact('vehicle_model');
+    }
+
+    public function version($vehicle_brand, $vehicle_model) {
+            $vehicle_version = Vehicle_version::where('brand_id', $vehicle_brand,)
+                    ->where('model_id', $vehicle_model)
+                    ->orderBy('label')
+                    ->get();
+            return compact('vehicle_version');
     }
 }
